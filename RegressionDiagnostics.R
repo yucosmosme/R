@@ -1,0 +1,23 @@
+forbes=read.table("C:\\Users\\Admin\\Desktop\\R PRACTICE\\forbes.txt",header=T)
+attach(forbes)
+Lpress=100*log10(press)
+head(forbes)
+plot(temp, Lpress, pch=19)
+identify(temp, Lpress)
+forbes.lm=lm(Lpress~temp, data=forbes)
+summary(forbes.lm)
+anova(forbes.lm)
+
+forbes.res=ls.diag(forbes.lm)
+names(forbes.res)
+attach(forbes.res)
+resid.result=cbind(std.res, stud.res, hat)
+print(resid.result)
+qt(0.01/(2*17),14)
+2*17*(1-pt(22.77109483, 14))
+
+install.packages("car")
+library(car)
+outlierTest(forbes.lm)
+rstudent(forbes.lm)
+  
