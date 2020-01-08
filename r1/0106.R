@@ -182,7 +182,8 @@ l1
 l2<-list(name=c('yu','kim'),age=c(32,28), home=c('부천','경기'))
 l2
 l2$age
-
+l2$age[2] #$age의 2번째 값 반환
+l2$age<-NULL #원소 제거
 
 
 v6<-c(1:100)
