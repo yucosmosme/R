@@ -1,0 +1,89 @@
+library(readxl)
+install.packages(readxl)
+install.packages("readxl")
+library(readxl)
+water <-read_excel("D:\\Workspace\\RegressionModel\\RegressionModel_Assignment\\ch02_no03.xlsx")
+head(water)
+#(1)?쉶洹諛⑹젙?떇?쓣 援ы븯?씪
+water.lm=lm(YY~XX1+XX2+XX3, data=water)
+summary(water.lm)
+#(3)遺꾩궛遺꾩꽍?몴瑜? ?옉?꽦?븯怨? 寃곗젙怨꾩닔 R2?쓣 援ы븯?씪
+anova(water.lm)
+library(readxl)
+water <-read_excel("D:\\Workspace\\RegressionModel\\RegressionModel_Assignment\\ch02_no03.xlsx")
+head(water)
+#(1)?쉶洹諛⑹젙?떇?쓣 援ы븯?씪
+water.lm=lm(YY~XX1+XX2+XX3, data=water)
+summary(water.lm)
+#(3)遺꾩궛遺꾩꽍?몴瑜? ?옉?꽦?븯怨? 寃곗젙怨꾩닔 R2?쓣 援ы븯?씪
+anova(water.lm)
+install.packages(c("car", "knitr"))
+knitr::opts_chunk$set(echo = TRUE)
+install.packages(car)
+install.packages("car")
+library(car)
+avPlots(chemical.lm)
+chemical.lm=lm(LOSS~SPEED+TEMP, data=chemical)
+chemical <-read_excel("D:\\Workspace\\RegressionModel\\RegressionModel_Assignment\\p78.xlsx",1)
+head(chemical)
+install.packages("carData")
+install.packages("carData")
+install.packages("carData")
+knitr::opts_chunk$set(echo = TRUE)
+library(carData)
+install.packages("carData")
+install.packages("carData")
+avPlots(chemical.lm)
+identify(chemical$SPEED, chemical.lm$residuals)
+library(readxl)
+chemical <-read_excel("D:\\Workspace\\RegressionModel\\RegressionModel_Assignment\\p78.xlsx",1)
+head(chemical)
+library(readxl)
+chemical <-read_excel("D:\\Workspace\\RegressionModel\\RegressionModel_Assignment\\p78.xlsx",1)
+head(chemical)
+(1) 자료 파일 읽기
+```{r}
+library(readxl)
+chemical <-read_excel("D:\\Workspace\\RegressionModel\\RegressionModel_Assignment\\p78.xlsx",1)
+head(chemical)
+```
+head 함수를 통하여 데이터 값의 처음 6줄을 보여준다.
+(2) 기술 통계량 및 상관계수 보기
+```{r}
+summary(chemical[,-1])
+cor(chemical[,-1])
+```
+cor 명령을 통해 독립변수들(속도, 온도)과 종속변수(손실량) 간의 상관관계가 각각 0.8548423, 0.8953498로 높음을 알 수 있다.
+(3) 회귀모형 적합하기
+```{r}
+chemical.lm=lm(LOSS~SPEED+TEMP, data=chemical)
+summary(chemical.lm)
+par("mar")
+par(mar=c(1,1,1,1))
+library(car)
+library(carData)
+avPlots(chemical.lm)
+```
+summary 함수를 통하여 추정된 회귀방정식은 y^=-47.6243 + 0.4216*speed + 1.9217*temp 이다.
+결정계수 R-square = 0.8539로서, 중회귀모형이 종속변수 loss의 총변동을 85.4%정도 설명하고 있음을 나타낸다.
+표준오차 root MSE=4.465 로서,  σ의 추정치가 4.465임을 알 수 있다.
+speed에 대한 유의확률 p-값은 0.106360으로 유의수준 0.05에서 loss에 대한 설명력이 약하다고 할 수 있으며,
+temp에 대한 유의확률 p-값은 0.022316으로 유의수준 0.05의 범위내에 있으므로, loss에 대한 설명력이 높다고 할 수 있다.
+speed에 대한 추가변수그림을 보면 선형성이 낮으므로, speed 변수는 회귀모형에서 유의성이 떨어진다고 볼 수 있으며,
+temp에 대한 추가변수 그림은 선형성이 높으므로 temp 변수의 유의성은 높음을 알 수 있다.
+(4) 분산분석표
+```{r pressure, echo=FALSE}
+anova(chemical.lm)
+```
+summary함수에서 본 F-statistics=26.3에 대한 p-value=0.0001741 로 매우 작으므로, 본 중회귀모형이 매우 유의함을 알 수 있다.
+또한 오차분산의 추정치 MSE=19.94임을 알 수 있다.
+(5) 잔차산점도 그리기
+```{r}
+plot(chemical$SPEED, chemical.lm$residuals)
+identify(chemical$SPEED, chemical.lm$residuals)
+plot(chemical$TEMP, chemical.lm$residuals)
+identify(chemical$TEMP, chemical.lm$residuals)
+plot(chemical$TEMP, chemical.lm$residuals)
+identify(chemical$TEMP, chemical.lm$residuals)
+plot(chemical.lm$fitted.values, chemical.lm$residuals)
+abline(h=0, lty=2)
