@@ -168,3 +168,30 @@ religion_marriage<-df %>%
   mutate(sum1 = sum(cnt)) %>%
   mutate(pct = round(cnt/sum1*100,1))
 religion_marriage
+
+
+#연령대 및 종교 유무에 따른 이혼율
+ageg_religion
+
+
+# 지역별 연령대 비율
+summary(df$code_region)
+table(df$code_region)
+list_region<-data.frame(code_region=c(1:7),
+                        region=c('서울','수도권(인천/경기)','부산/경남/울산','대구/경북','대전/충남','강원/충북','광주/전남/전북/제주도'))
+list_region
+df<-left_join(df, list_region, id="code_region")
+head(df$religion)
+tail(df$religion)
+region_ageg<-df %>% group_by(region, ageg) %>%
+  summarise(cnt=n()) %>%
+  mutate(hap=sum(cnt)) %>%
+  mutate(pct=round(cnt/hap*100,1))
+library(ggplot2)
+ggplot(data =region_ageg, aes(x=regon, y=pct, fill=ageg))+geom_/ol()+coord_flip()
+
+list_order<-region_ageg %>% filter(ageg=='노년') %>% 
+  arrange(desc(pct))
+list_order
+
+ggplot(data =region_ageg, aes(x=region, y=pct, fill=ageg))+geom_col()+coord_flip()+scale_x_discrete(limits=list_order$region)
